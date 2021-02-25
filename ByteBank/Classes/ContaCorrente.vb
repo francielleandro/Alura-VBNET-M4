@@ -13,6 +13,13 @@
             End Get
         End Property
 
+        Private Shared m_TaxaOperacao As Integer
+        Public Shared ReadOnly Property TaxaOperacao As Integer
+            Get
+                Return m_TaxaOperacao
+            End Get
+        End Property
+
         Private m_agencia As Integer
         Public Property agencia As Integer
             Get
@@ -47,6 +54,7 @@
             m_agencia = _Agencia
             numero = _numero
             m_TotalDeContasCriadas += 1
+            m_TaxaOperacao = (30 / m_TotalDeContasCriadas)
         End Sub
 #End Region
 
