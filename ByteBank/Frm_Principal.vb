@@ -55,29 +55,40 @@ Public Class Frm_Principal
 
     Private Sub Vídeo03ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles Vídeo03ToolStripMenuItem.Click
         Dim denominador As Integer = Val(Txt_Denominador.Text)
-
         Try
             TestarDivisao2(denominador)
         Catch ex As InvalidCastException
             MsgBox(ex.Message)
             MsgBox(ex.StackTrace)
-            MsgBox("Existe um erro o tentar escrever a mensagem da divisão.")
+            MsgBox("Houve um erro de conversão de um Double para um String em algum MsgBox.")
+        Catch ex As OverflowException
+            MsgBox(ex.Message)
+            MsgBox(ex.StackTrace)
+            MsgBox("Houve um erro de divisão por zero.")
+        Catch ex As Exception
+            MsgBox(ex.Message)
+            MsgBox(ex.StackTrace)
+            MsgBox("Houve um erro genérico. Observe a mensagem de retorno da exceção")
         End Try
 
     End Sub
 
     Sub TestarDivisao2(Valor As Integer)
-        Try
-            Dim Resultado As Integer = EfetuarDivisao2(10, Valor)
-            MsgBox("O valor da divisão entre 10 e " + Valor.ToString + " é de " + Resultado)
-        Catch ex As OverflowException
-            MsgBox("Houve uma divisão por zero.")
-            MsgBox(ex.StackTrace)
-            MsgBox(ex.Message)
-        End Try
+        Dim Resultado As Integer = EfetuarDivisao2(10, Valor)
+        MsgBox("Erro de divisão ocorreu, mas estou continuando o programa")
+        If Valor = 5 Then
+            Dim Conta As New ContaCorrente(277, 344445)
+            MsgBox(Conta.titular.nome)
+        End If
+        MsgBox("O valor da divisão entre 10 e " + Valor.ToString + " é de " + Resultado)
     End Sub
 
     Function EfetuarDivisao2(Numerador As Integer, Denominador As Integer) As Integer
-        Return Numerador / Denominador
+        Try
+            Return Numerador / Denominador
+        Catch ex As OverflowException
+            MsgBox("Tentamos dividir o número " + Numerador.ToString + " por " + Denominador.ToString)
+            Throw
+        End Try
     End Function
 End Class

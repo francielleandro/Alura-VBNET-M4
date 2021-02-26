@@ -12,7 +12,7 @@
             End Set
         End Property
 
-        Public Property name As String
+        Public Property nome As String
 
         Public Property profissao As String
     End Class
