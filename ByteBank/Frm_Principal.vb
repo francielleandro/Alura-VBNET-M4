@@ -22,7 +22,6 @@ Public Class Frm_Principal
         Dim denominador As Integer = Txt_Denominador.Text
         Dim resposta As Integer = TestarDivisao(denominador)
 
-
         If resposta = -1 Then
             MsgBox("Não é possivel fazer a divisão porque o denominador é igual a zero")
         ElseIf resposta = -2 Then
@@ -55,6 +54,22 @@ Public Class Frm_Principal
     End Function
 
     Private Sub Vídeo03ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles Vídeo03ToolStripMenuItem.Click
+        Dim denominador As Integer = Val(Txt_Denominador.Text)
+        TestarDivisao2(denominador)
+    End Sub
+
+    Sub TestarDivisao2(Valor As Integer)
+        Dim Resultado As Integer
+        Try
+            Resultado = EfetuarDivisao2(10, Valor)
+            MsgBox("O valor da divisão entre 10 e " + Valor.ToString + " é de " + Resultado.ToString)
+        Catch ex As Exception
+            MsgBox("Houve um erro ao efetuar a divisão : " + ex.Message)
+        End Try
 
     End Sub
+
+    Function EfetuarDivisao2(numerador As Integer, denominador As Integer) As Integer
+        Return numerador / denominador
+    End Function
 End Class
