@@ -55,21 +55,29 @@ Public Class Frm_Principal
 
     Private Sub Vídeo03ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles Vídeo03ToolStripMenuItem.Click
         Dim denominador As Integer = Val(Txt_Denominador.Text)
-        TestarDivisao2(denominador)
-    End Sub
 
-    Sub TestarDivisao2(Valor As Integer)
-        Dim Resultado As Integer
         Try
-            Resultado = EfetuarDivisao2(10, Valor)
-            MsgBox("O valor da divisão entre 10 e " + Valor.ToString + " é de " + Resultado.ToString)
-        Catch ex As Exception
-            MsgBox("Houve um erro ao efetuar a divisão : " + ex.Message)
+            TestarDivisao2(denominador)
+        Catch ex As InvalidCastException
+            MsgBox(ex.Message)
+            MsgBox(ex.StackTrace)
+            MsgBox("Existe um erro o tentar escrever a mensagem da divisão.")
         End Try
 
     End Sub
 
-    Function EfetuarDivisao2(numerador As Integer, denominador As Integer) As Integer
-        Return numerador / denominador
+    Sub TestarDivisao2(Valor As Integer)
+        Try
+            Dim Resultado As Integer = EfetuarDivisao2(10, Valor)
+            MsgBox("O valor da divisão entre 10 e " + Valor.ToString + " é de " + Resultado)
+        Catch ex As OverflowException
+            MsgBox("Houve uma divisão por zero.")
+            MsgBox(ex.StackTrace)
+            MsgBox(ex.Message)
+        End Try
+    End Sub
+
+    Function EfetuarDivisao2(Numerador As Integer, Denominador As Integer) As Integer
+        Return Numerador / Denominador
     End Function
 End Class
